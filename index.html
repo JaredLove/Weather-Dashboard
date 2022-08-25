@@ -1,23 +1,52 @@
 <!DOCTYPE html>
-
 <html lang="en">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    </head>
-    
-    
-    <body>
-    <header>
-        <h1>Weather Dashboard</h1>
-    </header>
 
-        <main>
-            <div id="myData"></div>
-        </main>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Weather Dashboard</title>
+</head>
 
-    </body>
+<body class="flex-column min-100-vh">
+  <header class="hero">
+    <h1 class="app-title"><i class="fa-regular fa-clouds"></i> Weather Dashboard!</h1>
+    <h2>
+        Search for a City:
+    </h2>
+  </header>
+
+
+  <main class="flex-row justify-space-between">
+    <div class="col-12 col-md-4">
+
+      <div class="card">
+        <h3 class="card-header text-uppercase">Search for a City!</h3>
+        <form id="user-form" class="card-body">
+          <label class="form-label" for="city">City</label>
+          <input name="city" id="city" type="text" autofocus="true" class="form-input" />
+          <button type="submit" class="btn">Get Weather</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-12 col-md-8">
+      <h2 class="subtitle">Current Day: <span id="current"></span></h2>
+      <div id="day" class="list-group"></div>
+    </div>
+    
+    <div class="col-12 col-md-8">
+      <h2 class="subtitle">5-Day Forecast: <span id="city-search"></span></h2>
+      <div id="forcast-container" class="list-group"></div>
+    </div>
+
+    
+  </main>
+
+
+
+    <script src="./assets/js/script.js"></script>
+
+</body>
 
 </html>
