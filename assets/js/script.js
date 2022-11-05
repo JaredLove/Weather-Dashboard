@@ -6,18 +6,34 @@ var dayConEl = document.querySelector("#day");
 var dayTerm = document.querySelector("#current")
 
 
+
 var key = "16a855ad62f57b12f8164689eb3974f7";
 
 
 
+//Format Date and time 
+var date = moment().format('dddd') + " " + moment().format("Do MMM YYYY");
+var hour = moment().format('h:mm:ss a');
+var hours = moment().hours();
+var input;
+var hourt;
+
+//Format for current day
+var interval = setInterval(function() {
+  var time = moment();
+  $('#currentDay').html(time.format('YYYY MMMM DD') + ' '
+                      + time.format('dddd')
+                       .substring(0,3).toUpperCase());
+  $('#currentDay').html(date + " " + time.format('hh:mm:ss A'));
+}, 100);
 
 
 
-var displayWeather = function(data,searchTerm) {
+
+var displayWeather = function(data, searchTerm) {
 
 
-  console.log(data.main.temp);
-  console.log(searchTerm);
+
 
   dayConEl.textContent = '';
   dayTerm.textContent = searchTerm;
@@ -29,31 +45,35 @@ var displayWeather = function(data,searchTerm) {
 
      console.log(weatherS);
 
+    
+
 }
 
 var displayWeather2 = function (data, searchTerm) {
-
   console.log(data);
-  forcastContainerEl = "";
+  console.log(searchTerm);
+  console.log(data);
+  forcastContainerEl.textContent = '';
   citySearch.textContent = searchTerm;
 
-  for (i=0; i < data.length; i+6) {
+  for (let i = 1; i < 6; i++) {
     var weather2 = document.createElement('p');
-    weather2.innerHTML = "Tempature: " + data.main.temp + " °F " + " / " + " Humidity: " + data.main.humidity + " % " + " / " + " Wind: " + data.wind.speed + " MPH ";
+    weather2.innerHTML = "Tempature: " + data.list[i].main.temp + " °F " + " / " + " Humidity: " + data.list[i].main.humidity + " % " + " / " + " Wind: " + data.list[i].wind.speed + " MPH ";
 
     forcastContainerEl.appendChild(weather2);
+  }
 
     console.log(weather2);
 
-  }
+  
 }
 
 
 
 
 
-var getForcast = function(cityName) {
-  var apiUrl = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" +cityName+ "&appid=" + key;
+var getForcast = function(cit) {
+  var apiUrl = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" +cit+ "&appid=" + key;
 
 
   fetch(apiUrl)
@@ -61,7 +81,7 @@ var getForcast = function(cityName) {
         if (response.ok) {
             response.json()
             .then(function(data) {
-              displayWeather2(data, cityName);
+              displayWeather2(data, cit);
               console.log(data);
             });
           } else {
@@ -73,19 +93,17 @@ var getForcast = function(cityName) {
 
 
 
-var getWeather = function(cityName) {
+var getWeather = function(cit) {
   
      // format the github api url
-     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" +cityName+ "&appid=" + key;
+     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" +cit+ "&appid=" + key;
 
      fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
             response.json()
             .then(function(data) {
-              displayWeather(data, cityName);
-              getForcast(cityName);
-              console.log(data);
+              displayWeather(data, cit);
             });
           } else {
             alert('Error: City not found!');
@@ -103,6 +121,7 @@ var getCity = function(event) {
 
   if (cit) {
     getWeather(cit);
+    getForcast(cit);
     cityInputEl.value = "";
   } else {
     alert("Please enter a city!");
@@ -111,30 +130,3 @@ var getCity = function(event) {
   };
 
   userFormEl.addEventListener("submit", getCity);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- // var test = "http://api.openweathermap.org/geo/1.0/direct?q=Austin&limit=5&appid=16a855ad62f57b12f8164689eb3974f7"
-
-//var test2 = "http://api.openweathermap.org/data/2.5/forecast?q=Austin&limit=5&appid=16a855ad62f57b12f8164689eb3974f7"
-
-          //  "http://api.openweathermap.org/data/2.5/forecast?" + q + "&limit=5&appid=16a855ad62f57b12f8164689eb3974f7"
