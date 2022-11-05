@@ -49,24 +49,14 @@ var displayWeather = function(data, searchTerm) {
 
 }
 
-var displayWeather2 = function (data, searchTerm) {
-  console.log(data);
-  console.log(searchTerm);
-  console.log(data);
-  forcastContainerEl.textContent = '';
-  citySearch.textContent = searchTerm;
-
-  for (let i = 1; i < 6; i++) {
+  for (let i = 0; i < data.list.length; i+=8) {
     var weather2 = document.createElement('p');
-    weather2.innerHTML = "Tempature: " + data.list[i].main.temp + " °F " + " / " + " Humidity: " + data.list[i].main.humidity + " % " + " / " + " Wind: " + data.list[i].wind.speed + " MPH ";
-
+    weather2.innerHTML = "Date: " + data.list[i].dt_txt + "Tempature: " + data.list[i].main.temp + " °F " + " / " + " Humidity: " + data.list[i].main.humidity + " % " + " / " + " Wind: " + data.list[i].wind.speed + " MPH ";
+    console.log(weather2);
     forcastContainerEl.appendChild(weather2);
   }
 
     console.log(weather2);
-
-  
-}
 
 
 
