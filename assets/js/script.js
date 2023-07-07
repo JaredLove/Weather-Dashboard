@@ -1,26 +1,26 @@
-var userFormEl = document.querySelector("#user-form");
-var cityInputEl = document.querySelector("#city");
-var forcastContainerEl = document.querySelector("#forcast-container");
-var citySearch = document.querySelector("#city-search");
-var dayConEl = document.querySelector("#day");
-var dayTerm = document.querySelector("#current")
+let userFormEl = document.querySelector("#user-form");
+let cityInputEl = document.querySelector("#city");
+let forcastContainerEl = document.querySelector("#forcast-container");
+let citySearch = document.querySelector("#city-search");
+let dayConEl = document.querySelector("#day");
+let dayTerm = document.querySelector("#current")
 
 
 
-var key = "16a855ad62f57b12f8164689eb3974f7";
+let key = "16a855ad62f57b12f8164689eb3974f7";
 
 
 
 //Format Date and time 
-var date = moment().format('dddd') + " " + moment().format("Do MMM YYYY");
-var hour = moment().format('h:mm:ss a');
-var hours = moment().hours();
-var input;
-var hourt;
+let date = moment().format('dddd') + " " + moment().format("Do MMM YYYY");
+let hour = moment().format('h:mm:ss a');
+let hours = moment().hours();
+let input;
+let hourt;
 
 //Format for current day
-var interval = setInterval(function() {
-  var time = moment();
+let interval = setInterval(function() {
+  let time = moment();
   $('#currentDay').html(time.format('YYYY MMMM DD') + ' '
                       + time.format('dddd')
                        .substring(0,3).toUpperCase());
@@ -30,7 +30,7 @@ var interval = setInterval(function() {
 
 
 
-var displayWeather = function(data, searchTerm) {
+let displayWeather = function(data, searchTerm) {
 
 
 
@@ -38,32 +38,59 @@ var displayWeather = function(data, searchTerm) {
   dayConEl.textContent = '';
   dayTerm.textContent = searchTerm;
 
-  var weatherS = document.createElement('p');
-     weatherS.innerHTML = "Tempature: " + data.main.temp + " °F " + " / " + " Humidity: " + data.main.humidity + " % " + " / " + " Wind: " + data.wind.speed + " MPH ";
-
-     dayConEl.appendChild(weatherS);
+  let weatherS = document.createElement('p');
+  let weatherHumidity = document.createElement('p');
+  let weatherWind = document.createElement('p'); 
+      weatherS.innerHTML = "Tempature: " + data.main.temp + " °F ";
+      weatherHumidity.innerHTML = "Humidity: " + data.main.humidity + " % ";
+      weatherWind.innerHTML = "Wind: " + data.wind.speed + " MPH ";
+      dayConEl.appendChild(weatherS);
+      dayConEl.appendChild(weatherHumidity);
+      dayConEl.appendChild(weatherWind);
 
      console.log(weatherS);
 
-    
+  
 
 }
 
+let displayWeather2 = function (data, searchTerm) {
+  console.log(data);
+  console.log(searchTerm);
+  console.log(data);
+  forcastContainerEl.textContent = '';
+  citySearch.textContent = searchTerm;
+
+
   for (let i = 0; i < data.list.length; i+=8) {
-    var weather2 = document.createElement('p');
-    weather2.innerHTML = "Date: " + data.list[i].dt_txt + "Tempature: " + data.list[i].main.temp + " °F " + " / " + " Humidity: " + data.list[i].main.humidity + " % " + " / " + " Wind: " + data.list[i].wind.speed + " MPH ";
-    console.log(weather2);
-    forcastContainerEl.appendChild(weather2);
+    let weather2Date = document.createElement('p');
+    let weather2Temp = document.createElement('p');
+    let weather2Humidity = document.createElement('p');
+    let weather2Wind = document.createElement('p');
+
+
+    weather2Date.innerHTML = "Date: " + data.list[i].dt_txt + " °F ";
+    weather2Temp.innerHTML = "Tempature: " + data.list[i].main.temp + " °F ";
+    weather2Humidity.innerHTML = "Humidity: " + data.list[i].main.humidity + " % ";
+    weather2Wind.innerHTML = "Wind: " + data.list[i].wind.speed + " MPH ";
+   
+    forcastContainerEl.appendChild(weather2Date);
+    forcastContainerEl.appendChild(weather2Temp);
+    forcastContainerEl.appendChild(weather2Humidity);
+    forcastContainerEl.appendChild(weather2Wind);
   }
 
-    console.log(weather2);
+
+
+
+}
 
 
 
 
 
-var getForcast = function(cit) {
-  var apiUrl = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" +cit+ "&appid=" + key;
+let getForcast = function(cit) {
+  let apiUrl = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" +cit+ "&appid=" + key;
 
 
   fetch(apiUrl)
@@ -83,16 +110,18 @@ var getForcast = function(cit) {
 
 
 
-var getWeather = function(cit) {
+let getWeather = function(cit) {
   
      // format the github api url
-     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" +cit+ "&appid=" + key;
+     let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" +cit+ "&appid=" + key;
 
      fetch(apiUrl)
     .then(function(response) {
+      
         if (response.ok) {
             response.json()
             .then(function(data) {
+             
               displayWeather(data, cit);
             });
           } else {
@@ -103,15 +132,19 @@ var getWeather = function(cit) {
 }
 
 
-var getCity = function(event) {
+let getCity = function(event) {
+
+  
 
     event.preventDefault();
     // get value from input element
-  var cit = cityInputEl.value.trim();
+  let cit = cityInputEl.value.trim();
 
   if (cit) {
     getWeather(cit);
     getForcast(cit);
+    dayConEl.classList.add("active");
+    forcastContainerEl.classList.add("active");
     cityInputEl.value = "";
   } else {
     alert("Please enter a city!");
@@ -120,3 +153,6 @@ var getCity = function(event) {
   };
 
   userFormEl.addEventListener("submit", getCity);
+
+
+  
