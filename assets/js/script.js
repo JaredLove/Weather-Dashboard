@@ -30,52 +30,53 @@ let interval = setInterval(function() {
 
 
 
-// let displayWeather = function(data, searchTerm) {
+let displayWeather = function(data, searchTerm) {
 
 
 
 
-//   // dayConEl.textContent = '';
-//   // dayTerm.textContent = searchTerm;
+  // dayConEl.textContent = '';
+  // dayTerm.textContent = searchTerm;
 
-//   // let weatherS = document.createElement('p');
-//   // let weatherHumidity = document.createElement('p');
-//   // let weatherWind = document.createElement('p'); 
-//   //     weatherS.innerHTML = "Tempature: " + data.main.temp + " °F ";
-//   //     weatherHumidity.innerHTML = "Humidity: " + data.main.humidity + " % ";
-//   //     weatherWind.innerHTML = "Wind: " + data.wind.speed + " MPH ";
-//   //     dayConEl.appendChild(weatherS);
-//   //     dayConEl.appendChild(weatherHumidity);
-//   //     dayConEl.appendChild(weatherWind);
+  // let weatherS = document.createElement('p');
+  // let weatherHumidity = document.createElement('p');
+  // let weatherWind = document.createElement('p'); 
+  //     weatherS.innerHTML = "Tempature: " + data.main.temp + " °F ";
+  //     weatherHumidity.innerHTML = "Humidity: " + data.main.humidity + " % ";
+  //     weatherWind.innerHTML = "Wind: " + data.wind.speed + " MPH ";
+  //     dayConEl.appendChild(weatherS);
+  //     dayConEl.appendChild(weatherHumidity);
+  //     dayConEl.appendChild(weatherWind);
 
-//   //    console.log(weatherS);
-//   var date = new Date(data.dt * 1000);
-//   var dateString = date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  //    console.log(weatherS);
+  var date = new Date(data.dt * 1000);
+  var dateString = date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
   
-//   var temperature = data.main.temp;
-//   var humidity = data.main.humidity;
-//   var weatherDescription = data.weather[0].description;
-//   var windSpeed = data.wind.speed;
+  var temperature = data.main.temp;
+  var humidity = data.main.humidity;
+  var weatherDescription = data.weather[0].description;
+  var windSpeed = data.wind.speed;
+  var city = data.name;
+  var iconCode = data.weather[0].icon;
+  var iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
   
-//   var iconCode = data.weather[0].icon;
-//   var iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+  var card = document.createElement("div");
+  card.classList.add("card");
   
-//   var card = document.createElement("div");
-//   card.classList.add("card");
+  card.innerHTML = `
+    <h2>${dateString}</h2>
+    <h3>${city}</h3>
+    <p>Temperature: ${temperature}°C</p>
+    <p>Humidity: ${humidity}%</p>
+    <p>Weather: ${weatherDescription}</p>
+    <p>Wind: ${windSpeed} m/s</p>
+    <img class="weather-icon" src="${iconUrl}" alt="${weatherDescription}">
+  `;
   
-//   card.innerHTML = `
-//     <h2>${dateString}</h2>
-//     <p>Temperature: ${temperature}°C</p>
-//     <p>Humidity: ${humidity}%</p>
-//     <p>Weather: ${weatherDescription}</p>
-//     <p>Wind: ${windSpeed} m/s</p>
-//     <img class="weather-icon" src="${iconUrl}" alt="${weatherDescription}">
-//   `;
-  
-//   dayConEl.appendChild(card);
+  dayConEl.appendChild(card);
 
 
-// }
+}
 
 
 
@@ -87,8 +88,8 @@ let displayWeather2 = function (data, searchTerm) {
 
   forcastContainerEl.textContent = '';
 // Extract the forecast for the next 5 days (assuming data.list has hourly data)
-var forecastData = data.list.filter((item, index) => index % 8 === 0).slice(0, 5);
-      
+var forecastData = data.list.filter((item, index) => index % 7 === 0).slice(1, 6);
+      console.log(forecastData);
       // Create a card for each day
       forecastData.forEach(day => {
         var card = document.createElement("div");
@@ -125,6 +126,7 @@ var forecastData = data.list.filter((item, index) => index % 8 === 0).slice(0, 5
 
 
 let subtitle = document.querySelector("#subtitle");
+let subtitle2 = document.querySelector("#subtitle2");
 
 
 let getForcast = function(cit) {
@@ -138,6 +140,7 @@ let getForcast = function(cit) {
             .then(function(data) {
               displayWeather2(data, cit);
               subtitle.removeAttribute("hidden");
+              subtitle2.removeAttribute("hidden");
               console.log(data);
             });
           } else {
@@ -149,26 +152,26 @@ let getForcast = function(cit) {
 
 
 
-// let getWeather = function(cit) {
+let getWeather = function(cit) {
   
-//      // format the github api url
-//      let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" +cit+ "&appid=" + key;
+     // format the github api url
+     let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=" +cit+ "&appid=" + key;
 
-//      fetch(apiUrl)
-//     .then(function(response) {
+     fetch(apiUrl)
+    .then(function(response) {
       
-//         if (response.ok) {
-//             response.json()
-//             .then(function(data) {
+        if (response.ok) {
+            response.json()
+            .then(function(data) {
              
-//               displayWeather(data, cit);
-//             });
-//           } else {
-//             alert('Error: City not found!');
-//           }
-//     })
+              displayWeather(data, cit);
+            });
+          } else {
+            alert('Error: City not found!');
+          }
+    })
 
-// }
+}
 
 
 let getCity = function(event) {
@@ -180,7 +183,7 @@ let getCity = function(event) {
   let cit = cityInputEl.value.trim();
 
   if (cit) {
-    // getWeather(cit);
+    getWeather(cit);
     getForcast(cit);
     cityInputEl.value = "";
   } else {
