@@ -3,45 +3,176 @@
     padding: 0;
     box-sizing: border-box;
 }
-.list-group {
-   
+
+body {
+    background-image: url("../images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+header {
+    background-color: rgb(36,48,48);
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+}
+
+footer {
+    background-color: rgb(36,48,48);
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
 
 }
-.list-group.active {
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: column;
+    justify-content: center;
+  }
+  
+  .card {
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    background-color: rgb(197,188,171);
+  }
+
+  .card-header {
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    background-color: rgb(197,188,171);
+    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: #000000 solid 1px;
-    border-radius: 5px;
-    width: 20%;
-    height: 250px;
+    align-items: center;
     margin-left: auto;
     margin-right: auto;
-}
+  }
 
-.list-group p {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    color: #000000;
-}
-
-.list-group-forcast.active {
+  .forecastHead {
     display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: #000000 solid 1px;
-    border-radius: 5px;
-    width: 20%;
-    height: 250px;
-    margin-left: auto;
-    margin-right: auto;
-}
+    align-items: center;
+    font-size: 20px;
+  }
+
+  .card h2 {
+    margin-top: 0;
+    font-size: 25px;
+  }
+
+  .card h3 {
+    margin-top: 0;
+    font-size: 20px;
+  }
+  
+  .card p {
+    margin-bottom: 5px;
+    font-size: 20px;
+  }
+  
+  .card .weather-icon {
+    width: 50px;
+    height: 50px;
+    margin: 5px auto;
+  }
+
+
+
+  /* mediaquery for mobile */
+
+    @media only screen and (max-width: 900px) {
+        body {
+        background-image: url("../images/hero.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        height: 100%;
+        }
+        .flex-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        }
+        
+        .card {
+        width: 200px;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+        background-color: rgb(197,188,171);
+        }
+    
+        .card-header {
+        width: 200px;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+        background-color: rgb(197,188,171);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        }
+    
+        .forecastHead {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        }
+    
+        .card h2 {
+        margin-top: 0;
+        font-size: 25px;
+        }
+    
+        .card h3 {
+        margin-top: 0;
+        font-size: 20px;
+        }
+        
+        .card p {
+        margin-bottom: 5px;
+        font-size: 20px;
+        }
+        
+        .card .weather-icon {
+        width: 50px;
+        height: 50px;
+        margin: 5px auto;
+        }
+    }
+
+    /* mediaquery for tablet */
+
+
+

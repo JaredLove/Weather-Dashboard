@@ -9,19 +9,19 @@
   <title>Weather Dashboard</title>
 </head>
 
-<body class="flex-column min-100-vh">
-  <header class="hero">
-    <h1>Current Date And Time:</h1>
-    <p id="currentDay" class="lead"></p>
-    <h1 class="app-title"><i class="fa-regular fa-clouds"></i> Weather Dashboard!</h1>
+<body class="hero">
+  <header>
+    
+    
+    <h1 class="app-title"><i class="fa-regular fa-clouds"></i> Weather Dashboard</h1>
   </header>
 
 
-  <main class="flex-row justify-space-between">
-    <div class="col-12 col-md-4">
+  <main class="content">
+    <div>
 
-      <div class="card">
-        <h3 class="card-header text-uppercase">Search for a City!</h3>
+      <div class="card-header">
+        <h3>Search for a City!</h3>
         <form id="user-form" class="card-body">
           <label class="form-label" for="city">City</label>
           <input name="city" id="city" type="text" autofocus="true" class="form-input" />
@@ -29,22 +29,30 @@
         </form>
       </div>
     </div>
-    <div class="col-12 col-md-8">
-      <h2 class="subtitle">Current Day: <span id="current"></span></h2>
-      <div id="day" class="list-group">
+    <!-- <div>
+      <h2 class="subtitle">Current City: <span id="current"></span></h2>
+      <div id="day" class="flex-container">
         
       </div>
+    </div> -->
+    <div class="forecastHead">
+      <h2 class="subtitle" id="subtitle" hidden>5-Day Forecast:</h2>
     </div>
-    
-    <div class="col-12 col-md-8">
-      <h2 class="subtitle">5-Day Forecast: <span id="city-search"></span></h2>
-      <div id="forcast-container" class="list-group-forcast">
+    <div class="forcastWrapper">
+      <div class="forcastDiv">
+      <div id="forcast-container" class="flex-container">
 
       </div>
     </div>
-
+    </div>
+</main>
+    <footer>
+    <div class="day-and-time">
+      <p id="currentDay" class="lead"></p>
+    </div>
+    </footer>
     
-  </main>
+  
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
